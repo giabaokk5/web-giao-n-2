@@ -1,0 +1,6 @@
+@BeFood.Api_HostAddress = http://localhost:5245
+
+GET {{BeFood.Api_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
