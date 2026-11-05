@@ -10,7 +10,11 @@ using BeFood.Api.Services;
 var builder = WebApplication.CreateBuilder(args);
 
 // Add Controllers & SignalR
-builder.Services.AddControllers();
+builder.Services.AddControllers()
+    .AddJsonOptions(options =>
+    {
+        options.JsonSerializerOptions.ReferenceHandler = System.Text.Json.Serialization.ReferenceHandler.IgnoreCycles;
+    });
 builder.Services.AddSignalR();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
@@ -53,6 +57,7 @@ var app = builder.Build();
 using (var scope = app.Services.CreateScope())
 {
     var db = scope.ServiceProvider.GetRequiredService<BeFoodDbContext>();
+    db.Database.EnsureCreated();
     if (!db.Restaurants.Any())
     {
         var bamua = new Restaurant
