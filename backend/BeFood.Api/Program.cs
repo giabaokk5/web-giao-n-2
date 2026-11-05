@@ -12,6 +12,8 @@ var builder = WebApplication.CreateBuilder(args);
 // Add Controllers & SignalR
 builder.Services.AddControllers();
 builder.Services.AddSignalR();
+builder.Services.AddEndpointsApiExplorer();
+builder.Services.AddSwaggerGen();
 builder.Services.AddOpenApi();
 builder.Services.AddHttpClient();
 
@@ -218,13 +220,20 @@ using (var scope = app.Services.CreateScope())
     }
 }
 
+app.UseSwagger();
+app.UseSwaggerUI(c =>
+{
+    c.SwaggerEndpoint("/swagger/v1/swagger.json", "BeFood API v1");
+    c.RoutePrefix = "swagger";
+});
+
 if (app.Environment.IsDevelopment())
 {
     app.MapOpenApi();
 }
 
-app.UseCors("AllowViteApp");
 app.UseRouting();
+app.UseCors("AllowViteApp");
 
 app.MapControllers();
 app.MapHub<OrderHub>("/hubs/order");

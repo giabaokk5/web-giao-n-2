@@ -8,4 +8,26 @@ export default defineConfig({
     react(),
     tailwindcss(),
   ],
+  server: {
+    port: 5173,
+    proxy: {
+      '/swagger': {
+        target: 'http://localhost:5245',
+        changeOrigin: true,
+      },
+      '/api': {
+        target: 'http://localhost:5245',
+        changeOrigin: true,
+      },
+      '/hubs': {
+        target: 'http://localhost:5245',
+        ws: true,
+        changeOrigin: true,
+      },
+      '/openapi': {
+        target: 'http://localhost:5245',
+        changeOrigin: true,
+      },
+    },
+  },
 })
