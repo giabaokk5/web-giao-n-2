@@ -12,20 +12,20 @@ export default defineConfig({
     port: 5173,
     proxy: {
       '/swagger': {
-        target: 'http://localhost:5245',
+        target: 'http://127.0.0.1:5245',
         changeOrigin: true,
       },
       '/api': {
-        target: 'http://localhost:5245',
+        target: 'http://127.0.0.1:5245',
         changeOrigin: true,
       },
       '/hubs': {
-        target: 'http://localhost:5245',
+        target: 'http://127.0.0.1:5245',
         ws: true,
         changeOrigin: true,
       },
       '/openapi': {
-        target: 'http://localhost:5245',
+        target: 'http://127.0.0.1:5245',
         changeOrigin: true,
       },
     },
